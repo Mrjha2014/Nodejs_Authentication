@@ -1,0 +1,32 @@
+{
+  "name": "nodejs_authentication",
+  "version": "1.0.0",
+  "description": "Nodejs Authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "keywords": [
+    "Nodejs",
+    "Authentication",
+    "nodejs",
+    "auth"
+  ],
+  "author": "Ashutosh",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^8.1.1",
+    "nodemailer": "^6.9.8",
+    "nodemon": "^3.0.3",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
