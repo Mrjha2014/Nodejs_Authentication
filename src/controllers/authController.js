@@ -1,9 +1,18 @@
+/**
+ * Controller for user authentication related operations
+ */
+
 const crypto = require("crypto");
 const User = require("../models/User");
 const sendEmail = require("../utils/emailUtil");
 const passport = require("passport");
 const authController = {};
 
+/**
+ * Register a new user
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 authController.register = async (req, res) => {
   try {
     const { email, name, password, confirm_password } = req.body;
@@ -52,6 +61,12 @@ authController.register = async (req, res) => {
   }
 };
 
+/**
+ * Verify user's email
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
 authController.verifyEmail = async (req, res, next) => {
   const hashedToken = crypto
     .createHash("sha256")
@@ -87,6 +102,13 @@ authController.verifyEmail = async (req, res, next) => {
     res.redirect("/login");
   }
 };
+
+/**
+ * User login
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
 authController.login = (req, res, next) => {
   passport.authenticate("local", async (err, user, info) => {
     if (err) {
@@ -115,6 +137,11 @@ authController.login = (req, res, next) => {
   })(req, res, next);
 };
 
+/**
+ * User logout
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 authController.logout = (req, res) => {
   req.logout((err) => {
     if (err) {
@@ -124,6 +151,12 @@ authController.logout = (req, res) => {
     res.redirect("/login");
   });
 };
+
+/**
+ * Forgot password
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 authController.forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
@@ -168,6 +201,11 @@ authController.forgotPassword = async (req, res) => {
   }
 };
 
+/**
+ * Reset password
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ */
 authController.resetPassword = async (req, res) => {
   const hashedToken = crypto
     .createHash("sha256")

@@ -16,6 +16,6 @@ const ensureAuthenticated = (req, res, next) => {
 };
 
 module.exports = {
-  isAlreadyLoggedIn,
-  ensureAuthenticated,
+  isAlreadyLoggedIn, // Export the isAlreadyLoggedIn middleware function
+  ensureAuthenticated, // Export the ensureAuthenticated middleware function
 };

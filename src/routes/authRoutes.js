@@ -7,8 +7,7 @@ const {
 } = require("../middleware/authMiddleware");
 const router = express.Router();
 
-// Verify email route
-router.get("/verify-email/:token", authController.verifyEmail);
+// post request
 
 // Register route
 router.post("/register", authController.register);
@@ -16,14 +15,24 @@ router.post("/register", authController.register);
 // Login route
 router.post("/login", authController.login);
 
-// Logout route
-router.get("/logout", authController.logout);
-
 // Forgot Password route
 router.post("/forgot-password", authController.forgotPassword);
 
 // Reset Password route
 router.post("/reset-password/:token", authController.resetPassword);
+
+// get request
+
+// home page
+router.get("/", (req, res) => {
+  if (req.isAuthenticated()) {
+    // If the user is logged in, redirect to the dashboard
+    res.redirect("/dashboard");
+  } else {
+    // If the user is not logged in, redirect to the login page
+    res.redirect("/login");
+  }
+});
 
 // Forgot Password page
 router.get("/forgot-password", (req, res) => {
@@ -42,6 +51,8 @@ router.get("/reset-password/:token", (req, res) => {
     successMessages: req.flash("success"),
   });
 });
+// Verify email route
+router.get("/verify-email/:token", authController.verifyEmail);
 
 // GET login page
 router.get("/login", isAlreadyLoggedIn, (req, res) => {
@@ -50,6 +61,8 @@ router.get("/login", isAlreadyLoggedIn, (req, res) => {
     successMessages: req.flash("success"),
   });
 });
+// Logout route
+router.get("/logout", authController.logout);
 
 // Google Auth
 router.get(
